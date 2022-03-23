@@ -1,3 +1,11 @@
+--[[
+    Made by ₷orus#8059
+    Get Good Get Lmaobox.
+]]
+
+---@diagnostic disable: undefined-global, empty-block, unused-local
+
+
 local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
 
@@ -9,9 +17,8 @@ else
     local info = client.GetPlayerNameByIndex( localPlr:GetIndex());
 end
 
-
 local detect = 0
-
+-- Avoid error and check if LocalPlayer exist, if yes i define localPtr and Info, detect => DetectMessage
 
 
 
@@ -21,11 +28,13 @@ draw.SetFont(consolas)
 if(engine.Con_IsVisible() == true) then
     draw.Color(0,255,0,255)
     draw.Text(5,5,"Console Enable")
+    -- Draw Color and change text to => "Console Enable" with green color
 end
 
 if(engine.Con_IsVisible() == false) then 
     draw.Color(255,0,0,255)
     draw.Text(5,1,"Console Disable")
+    -- Draw Color and change text to => "Console Disable" with red color
 end
 
 if(entities.GetLocalPlayer() == nil) then
@@ -34,7 +43,7 @@ if(entities.GetLocalPlayer() == nil) then
 end
 
 local activeWeapon = entities.GetLocalPlayer():GetPropEntity("m_hActiveWeapon")
-
+-- Get ActiveWeapon and check Weapons
 
 local WeaponID = activeWeapon:GetPropInt("m_iItemDefinitionIndex")
 if(WeaponID == nil) then
@@ -105,6 +114,8 @@ end
 if(WeaponID == 195) then
     name = "Fists"
 end
+
+-- Heavy 
 
 
 if(WeaponID == 197) then
@@ -180,7 +191,7 @@ end
 
 
 
-
+-- Detect Message
 local function DetectMessage(msg)
  if msg:GetID() == SayText2 then
         msg:SetCurBit(8)
@@ -194,17 +205,19 @@ local function DetectMessage(msg)
         if string.find(message, "!date") then
 
             client.ChatSay(date)
--- client.Command("tf_party_chat \""..date.. "\"", true)
-        end
+            client.Command("tf_party_chat \""..date.. "\"", true)
+        end -- Command "date", send the current date
+
+
         if string.find(message, "!number") then
             local random = math.random(1,1000)
             client.ChatSay(random)
          
-                   end
+                   end -- Command "!number" send a random numer beetwen 1 and 1000
 
         if string.find(message, "is a cheater") or string.find(message, "cheater") or string.find(message, "kick him") or string.find(message, "cheater") or string.find(message, "kick " .. info) then
       detect = 1
-        end
+        end -- Check every message send, and find cheaters and accuse words, and set detect to 1
     end
 
 
@@ -212,7 +225,7 @@ end
 
 local function AutoKick(ev)
     if(detect == 1) then
-        detect = 0
+        detect = 0 
     local victim_remains = ev:GetInt("userid")
     client.Command("callvote kick " .. victim_remains)
     print("Nigger detected !")
@@ -221,7 +234,7 @@ local function AutoKick(ev)
 end
 
 
-
+-- Detect 1 and set Detect => to 0, get the userid of player of the message and call a votekick and print
 
 
 -- Unregister, and Register Function to callbacks.
