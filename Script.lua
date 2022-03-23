@@ -1,7 +1,3 @@
-
----@diagnostic disable: undefined-global, empty-block, unused-local
-
-
 local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
 
@@ -193,7 +189,19 @@ local function DetectMessage(msg)
         local chatType = msg:ReadString(256)
         local playerName = msg:ReadString(256)
         local message = msg:ReadString(256)
-    
+        local date = os.date()
+        
+        if string.find(message, "!date") then
+
+            client.ChatSay(date)
+-- client.Command("tf_party_chat \""..date.. "\"", true)
+        end
+        if string.find(message, "!number") then
+            local random = math.random(1,1000)
+            client.ChatSay(random)
+         
+                   end
+
         if string.find(message, "is a cheater") or string.find(message, "cheater") or string.find(message, "kick him") or string.find(message, "cheater") or string.find(message, "kick " .. info) then
       detect = 1
         end
@@ -205,19 +213,22 @@ end
 local function AutoKick(ev)
     if(detect == 1) then
         detect = 0
-    local RetardLegit = ev:GetInt("userid")
-    client.Command("callvote kick " .. RetardLegit)
+    local victim_remains = ev:GetInt("userid")
+    client.Command("callvote kick " .. victim_remains)
     print("Nigger detected !")
     
   end
 end
 
- 
+
+
+
+
 -- Unregister, and Register Function to callbacks.
 callbacks.Unregister("Draw", "drawCon");
 callbacks.Unregister("DispatchUserMessage", "DetectMessage")
+callbacks.Unregister("FireGameEvent", "Iss")
 
 callbacks.Register("Draw", "drawCon", DrawToScreen);
 callbacks.Register("DispatchUserMessage", "DetectMessage", DetectMessage)
-
 callbacks.Register("FireGameEvent", "Iss", AutoKick)
