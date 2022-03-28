@@ -4,13 +4,10 @@
     Get Good Get Lmaobox.
 ]]
 
----@diagnostic disable: undefined-global, empty-block, unused-local
-
-
 local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
 local prefix = "$"
-
+local EnableInformation = true
 if(entities.GetLocalPlayer() == nil) then
     return
 else
@@ -27,6 +24,9 @@ local detect = 0
 local function DrawToScreen()
     -- Start Function
 draw.SetFont(consolas)
+
+if(EnableInformation == true) then
+
 if(engine.Con_IsVisible() == true) then
     draw.Color(0,255,0,255)
     draw.Text(5,5,"Console Enable")
@@ -188,7 +188,9 @@ draw.Text(5,40,"Current ID:")
 
 draw.Color(238, 222, 47, 255)
 draw.Text(105,40, WeaponID)
-
+else
+    return
+    end
 end
 
 
@@ -257,7 +259,7 @@ if(ev:GetName() == "party_chat") then
     client.Command("tf_party_chat \""..PendingMb.. "\"", true)
     client.Command("tf_party_chat \""..ping.. "\"", true)
     client.Command("tf_party_chat \""..ball.. "\"", true)
-   
+   -- Declare and send Help
    end
 
    if(eventMessage == prefix .. "queue") then
