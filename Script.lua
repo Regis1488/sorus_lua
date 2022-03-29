@@ -61,18 +61,32 @@ name = WeaponName
 if(WeaponID == 200) then
     name = "Scattergun"
 end
+if(WeaponID == 13) then
+    name = "Scattergun"
+end
 
 if(WeaponID == 209) then
     name = "Pistol"
 end
+
+if(WeaponID == 22) then
+    name = "Pisol"
+end
 if(WeaponID == 190) then
+    name = "Bat"
+end
+if(WeaponID == 0) then
     name = "Bat"
 end
 
 -- Scout
 
 
+
 if(WeaponID == 205) then
+    name = "Rocket Launcher"
+end
+if(WeaponID == 18) then
     name = "Rocket Launcher"
 end
 
@@ -80,16 +94,30 @@ if(WeaponID == 199) then
 name = "Shotgun"
 end
 
+
+if(WeaponID == 10) then
+    name = "Shotgun"
+    end
+
 if(WeaponID == 196) then
 name = "Shovel"
 end
+if(WeaponID == 6) then
+    name = "Shovel"
+    end
 -- Soldier
 
 if(WeaponID == 208) then
 name = "Flame Thrower"
 end
+if(WeaponID == 21) then
+    name = "Flame Thrower"
+end
 
 if(WeaponID == 192) then
+    name = "Fire Axe"
+end
+if(WeaponID == 2) then
     name = "Fire Axe"
 end
  -- Pyro
@@ -98,12 +126,22 @@ end
 if(WeaponID == 206) then
     name = "Grenade Launcher"
 end
+if(WeaponID == 19) then
+    name = "Grenade Launcher"
+end
 
 if(WeaponID == 207) then
    name  = "Stickybomb Launcher" 
 end
 
+if(WeaponID == 20) then
+    name  = "Stickybomb Launcher" 
+ end
+
 if(WeaponID == 191) then
+    name = "Bottle"
+end
+if(WeaponID == 1) then
     name = "Bottle"
 end
 -- Demoman
@@ -111,19 +149,36 @@ end
 if(WeaponID == 202) then
     name = "Minigun"
     end
-if(WeaponID == 199) then
+    if(WeaponID == 15) then
+        name = "Minigun"
+        end
+if(WeaponID == 11) then
+    name = "Shotgun"
+end
+if(WeaponID == 12) then
     name = "Shotgun"
 end
 if(WeaponID == 195) then
     name = "Fists"
 end
 
--- Heavy 
+if(WeaponID == 5) then
+    name = "Fists"
+end
 
+-- Heavy 
+if(WeaponID == 9) then
+    name = "Shotgun"
+end
 
 if(WeaponID == 197) then
     name = "Wrench"
 end
+
+if(WeaponID == 7) then
+    name = "Wrench"
+end
+
 if(WeaponID == 25) then
     name = "PDA"
 end
@@ -136,12 +191,24 @@ end
 if(WeaponID == 204 ) then
     name = "Syringe Gun"
 end
+
+if(WeaponID == 17 ) then
+    name = "Syringe Gun"
+end
+
 if(WeaponID == 211) then
+    name = "Medigun"
+end
+
+if(WeaponID == 29) then
     name = "Medigun"
 end
 if(WeaponID == 198) then
     name = "Bonesaw"
-end  
+end 
+if(WeaponID == 8) then
+    name = "Bonesaw"
+end   
 if(WeaponID == 28) then
     name = "Builder"
 end
@@ -150,10 +217,20 @@ end
 if(WeaponID == 201 ) then
     name = "Sniper Rifle"
 end
+if(WeaponID == 14 ) then
+    name = "Sniper Rifle"
+end
+
 if(WeaponID == 203) then
     name = "SMG"
 end
+if(WeaponID == 16) then
+    name = "SMG"
+end
 if(WeaponID == 193) then
+    name = "Kukri"
+end  
+if(WeaponID == 3) then
     name = "Kukri"
 end  
 -- Sniper
@@ -161,10 +238,16 @@ end
 if(WeaponID == 210 ) then
     name = "Revolver"
 end
+if(WeaponID == 24 ) then
+    name = "Revolver"
+end
 if(WeaponID == 735) then
     name = "Sapper"
 end
 if(WeaponID == 194) then
+    name = "Knife"
+end  
+if(WeaponID == 4) then
     name = "Knife"
 end  
 if(WeaponID == 27) then
@@ -217,6 +300,7 @@ local function DetectMessage(msg)
 end
 
 local function AutoKick(ev)
+    local casual = party.GetAllMatchGroups()["Casual"]
     if(detect == 1) then
         detect = 0 
     local victim_remains = ev:GetInt("userid")
@@ -228,21 +312,22 @@ local function AutoKick(ev)
 
 if(ev:GetName() == "party_chat") then
     local eventMessage = ev:GetString("text")
-   if(eventMessage == prefix .. "date" ) then
+   if(eventMessage == prefix .. "hourly" ) then
     local issou = os.date("%X")
     client.Command("tf_party_chat \""..issou.. "\"", true)
    end
 
    if(eventMessage == prefix .. "dice") then
     local random = math.random(1,100)
-    client.Command("tf_party_chat \""..random.. "\"", true)
+    local FinalMessage = "Number : " .. random
+    client.Command("tf_party_chat \""..FinalMessage.. "\"", true)
    end
 
    
    if(eventMessage == prefix .. "help") then
     local help = prefix .. "help : Send this message"
     local startqueue = prefix .. "queue : Start queue"
-    local date = prefix .. "date : Send the date"
+    local hourly = prefix .. "hour : Send the date"
     local stopqueue = prefix .. "stop : Stop queue"
     local dice = prefix .. "dice : Send a random number beetween 1 and 100"
     local members = prefix .."members : Give current members in the party"
@@ -250,9 +335,11 @@ if(ev:GetName() == "party_chat") then
     local PendingMb = prefix .. "pm : Send Pendings members"
     local ping = prefix .. "ping : Send the ping"
     local ball = prefix .. "8ball : Send Answer"
+    local map = prefix .. "map : Select map"
+    local maps = prefix .. "maps : Send maps selectionned"
     client.Command("tf_party_chat \""..help.. "\"", true)
-    client.Command("tf_party_chat \""..date.. "\"", true)
-    client.Command("tf_party_chat \""..number.. "\"", true)
+    client.Command("tf_party_chat \""..hourly.. "\"", true)
+    client.Command("tf_party_chat \""..dice.. "\"", true)
     client.Command("tf_party_chat \""..members.. "\"", true)
     client.Command("tf_party_chat \""..startqueue.. "\"", true)
     client.Command("tf_party_chat \""..stopqueue.. "\"", true)
@@ -260,14 +347,26 @@ if(ev:GetName() == "party_chat") then
     client.Command("tf_party_chat \""..PendingMb.. "\"", true)
     client.Command("tf_party_chat \""..ping.. "\"", true)
     client.Command("tf_party_chat \""..ball.. "\"", true)
+    client.Command("tf_party_chat \""..map.. "\"", true)
+    client.Command("tf_party_chat \""..maps.. "\"", true)
    -- Declare and send Help
    end
 
    if(eventMessage == prefix .. "queue") then
-    party.QueueUp(7)
+
+    local ErrorMessage = "Can't queue"
+    local check = party.CanQueueForMatchGroup(casual)
+    if check == true then
+    party.QueueUp(casual)
+    else
+        client.Command("tf_party_chat \""..ErrorMessage.. "\"", true)
+    end
+
    end
    if(eventMessage == prefix .. "stop") then
-    party.CancelQueue(7)
+
+    party.CancelQueue(casual)
+
 end
 if(eventMessage == prefix .. "clear") then
     local msg = "                                                                            "
