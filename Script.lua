@@ -4,8 +4,6 @@
     Get Good Get Lmaobox.
 ]]
 
----@diagnostic disable: undefined-global, empty-block, unused-local
-
 
 local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
