@@ -4,9 +4,12 @@
     Get Good Get Lmaobox.
 ]]
 
+---@diagnostic disable: undefined-global, empty-block, unused-local
+
+
 local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
-local prefix = "$"
+local prefix = "!"
 local EnableInformation = true
 if(entities.GetLocalPlayer() == nil) then
     return
@@ -228,12 +231,12 @@ local function AutoKick(ev)
 if(ev:GetName() == "party_chat") then
     local eventMessage = ev:GetString("text")
    if(eventMessage == prefix .. "date" ) then
-    local issou = os.date()
+    local issou = os.date("%X")
     client.Command("tf_party_chat \""..issou.. "\"", true)
    end
 
-   if(eventMessage == prefix .. "number") then
-    local random = math.random(1,1000)
+   if(eventMessage == prefix .. "dice") then
+    local random = math.random(1,100)
     client.Command("tf_party_chat \""..random.. "\"", true)
    end
 
@@ -243,7 +246,7 @@ if(ev:GetName() == "party_chat") then
     local startqueue = prefix .. "queue : Start queue"
     local date = prefix .. "date : Send the date"
     local stopqueue = prefix .. "stop : Stop queue"
-    local number = prefix .. "humber : Send a random number beetween 1 and 1000"
+    local dice = prefix .. "dice : Send a random number beetween 1 and 100"
     local members = prefix .."members : Give current members in the party"
     local clearChats = prefix .. "clear : Clear the party chat"
     local PendingMb = prefix .. "pm : Send Pendings members"
@@ -272,7 +275,7 @@ if(eventMessage == prefix .. "clear") then
     local msg = "                                                                            "
     client.Command("tf_party_chat \"".. msg .."\"", true)
 end
-if(eventMessage == prefix .. "pending") then
+if(eventMessage == prefix .. "pm") then
     local errorp = "No pending Members"
 local p = table.concat(party.GetPendingMembers())
 if(p == "") then
