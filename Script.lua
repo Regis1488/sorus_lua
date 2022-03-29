@@ -312,7 +312,7 @@ local function AutoKick(ev)
 
 if(ev:GetName() == "party_chat") then
     local eventMessage = ev:GetString("text")
-   if(eventMessage == prefix .. "hourly" ) then
+   if(eventMessage == prefix .. "time" ) then
     local issou = os.date("%X")
     client.Command("tf_party_chat \""..issou.. "\"", true)
    end
@@ -327,7 +327,7 @@ if(ev:GetName() == "party_chat") then
    if(eventMessage == prefix .. "help") then
     local help = prefix .. "help : Send this message"
     local startqueue = prefix .. "queue : Start queue"
-    local hourly = prefix .. "hour : Send the date"
+    local time = prefix .. "time : Send the date"
     local stopqueue = prefix .. "stop : Stop queue"
     local dice = prefix .. "dice : Send a random number beetween 1 and 100"
     local members = prefix .."members : Give current members in the party"
@@ -338,7 +338,7 @@ if(ev:GetName() == "party_chat") then
     local map = prefix .. "map : Select map"
     local maps = prefix .. "maps : Send maps selectionned"
     client.Command("tf_party_chat \""..help.. "\"", true)
-    client.Command("tf_party_chat \""..hourly.. "\"", true)
+    client.Command("tf_party_chat \""..time.. "\"", true)
     client.Command("tf_party_chat \""..dice.. "\"", true)
     client.Command("tf_party_chat \""..members.. "\"", true)
     client.Command("tf_party_chat \""..startqueue.. "\"", true)
