@@ -368,6 +368,33 @@ if(ev:GetName() == "party_chat") then
     party.CancelQueue(casual)
 
 end
+if string.find(eventMessage, prefix .. "map")  then
+    local extracted = string.match(eventMessage, "^.*%s(.*)")
+    gamecoordinator.EnumerateQueueMapsHealth( function( map, health )
+    if map:GetName() == extracted then
+        party.SetCasualMapSelected( map, true )
+    end
+end)
+
+if extracted == nil then
+    local errorMessage = "Needs args"
+    client.Command("tf_party_chat \""..errorMessage.. "\"", true)
+end
+
+end
+
+if(eventMessage == prefix .. "maps") then
+    gamecoordinator.EnumerateQueueMapsHealth( function( map )
+
+    
+        if party.IsCasualMapSelected( map ) then
+            local msg = map:GetName()
+            client.Command("tf_party_chat \"".. msg .."\"", true)
+        end
+    
+    end )
+        
+end
 if(eventMessage == prefix .. "clear") then
     local msg = "                                                                            "
     client.Command("tf_party_chat \"".. msg .."\"", true)
