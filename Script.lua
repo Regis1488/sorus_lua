@@ -9,6 +9,16 @@ local consolas = draw.CreateFont("Consolas", 17, 500)
 local name
 local prefix = "!"
 local EnableInformation = true
+
+
+
+-- =================[Globals variables]=================[
+  local  function sleep (a) 
+        local sec = tonumber(os.clock() + a); 
+        while (os.clock() < sec) do 
+        end 
+    end
+
 if(entities.GetLocalPlayer() == nil) then
     return
 else
@@ -300,6 +310,8 @@ local function DetectMessage(msg)
 end
 
 local function AutoKick(ev)
+
+    
     local casual = party.GetAllMatchGroups()["Casual"]
     if(detect == 1) then
         detect = 0 
@@ -312,47 +324,57 @@ local function AutoKick(ev)
 
 if(ev:GetName() == "party_chat") then
     local eventMessage = ev:GetString("text")
-   if(eventMessage == prefix .. "time" ) then
+    local steamID = ev:GetString("steamid")
+   if(eventMessage == prefix .. "time" or eventMessage == prefix .. "ti") then
     local issou = os.date("%X")
     client.Command("tf_party_chat \""..issou.. "\"", true)
    end
 
-   if(eventMessage == prefix .. "dice") then
+   if(eventMessage == prefix .. "dice" or eventMessage == prefix .. "d") then
     local random = math.random(1,100)
     local FinalMessage = "Number : " .. random
     client.Command("tf_party_chat \""..FinalMessage.. "\"", true)
    end
 
-   
-   if(eventMessage == prefix .. "help") then
-    local help = prefix .. "help : Send this message"
-    local startqueue = prefix .. "queue : Start queue"
-    local time = prefix .. "time : Send the date"
-    local stopqueue = prefix .. "stop : Stop queue"
-    local dice = prefix .. "dice : Send a random number beetween 1 and 100"
-    local members = prefix .."members : Give current members in the party"
-    local clearChats = prefix .. "clear : Clear the party chat"
-    local PendingMb = prefix .. "pm : Send Pendings members"
-    local ping = prefix .. "ping : Send the ping"
-    local ball = prefix .. "8ball : Send Answer"
-    local map = prefix .. "map : Select map"
-    local maps = prefix .. "maps : Send maps selectionned"
-    client.Command("tf_party_chat \""..help.. "\"", true)
+    
+   if(eventMessage == prefix .. "help" or eventMessage == prefix .. "h") then
+    local startqueue = "✅ Start Queue • (" .. prefix .. "startq, " .. prefix .."start, " .. prefix .. "q)"  
+    local stopqueue = "✅ Stop Queue • (" .. prefix .. "stopq, " .. prefix .. "stop, " .. prefix .. "sq)"
+    local time = "✅ Time • (" .. prefix .. "time ," .. prefix .. "ti)" 
+    local dice = "✅ Dice • (" .. prefix .. "dice, " .. prefix .. "d)"
+    local members = "✅ Members • (" .. prefix .. "members, " .. prefix .. "mem)" 
+    local clearChats = "✅ ClearChat • (" .. prefix .. "clear, " .. prefix .. "cls)"
+    local PendingMb = "✅ Pending Members • (" .. prefix .. "pm, " .. prefix .. "pendingmembers)"
+    local ping = "✅ Ping • (" .. prefix .. "ping, " .. prefix .. "pi)"
+    local ball = "✅ 8ball • (" .. prefix .. "8ball, " .. prefix .. "8b)"
+    local map = "✅ Map • (" .. prefix .. "map, " .. prefix .. "ma)"
+    local maps = "✅ Maps • (" .. prefix .. "maps, " .. prefix .. "m)"
+ --   local RestartQueue = "✅ Restart Queue • (" .. prefix .. "restartq, " .. prefix .. "restart, " .. prefix .. "rq)"
+    local changePrefix = "✅ Change Prefix • (" .. prefix .. "changeprefix, " .. prefix .. "cp)"
     client.Command("tf_party_chat \""..time.. "\"", true)
     client.Command("tf_party_chat \""..dice.. "\"", true)
     client.Command("tf_party_chat \""..members.. "\"", true)
     client.Command("tf_party_chat \""..startqueue.. "\"", true)
     client.Command("tf_party_chat \""..stopqueue.. "\"", true)
+  --  client.Command("tf_party_chat \""..RestartQueue.. "\"", true)
     client.Command("tf_party_chat \""..clearChats.. "\"", true)
     client.Command("tf_party_chat \""..PendingMb.. "\"", true)
     client.Command("tf_party_chat \""..ping.. "\"", true)
     client.Command("tf_party_chat \""..ball.. "\"", true)
     client.Command("tf_party_chat \""..map.. "\"", true)
     client.Command("tf_party_chat \""..maps.. "\"", true)
+    client.Command("tf_party_chat \""..changePrefix.. "\"", true)
    -- Declare and send Help
    end
 
-   if(eventMessage == prefix .. "queue") then
+
+   if(eventMessage == prefix .. "stop" or eventMessage == prefix .. "stopq" or eventMessage == prefix .. "sq") then
+    party.CancelQueue(casual)
+    local Sucess = "✅  - Stoped"
+    client.Command("tf_party_chat \""..Sucess.. "\"", true)
+   end
+
+   if(eventMessage == prefix .. "startq" or eventMessage == prefix .. "start" or eventMessage == prefix .. "q" ) then
 
     local ErrorMessage = "Can't queue"
     local check = party.CanQueueForMatchGroup(casual)
@@ -363,27 +385,42 @@ if(ev:GetName() == "party_chat") then
     end
 
    end
-   if(eventMessage == prefix .. "stop") then
 
-    party.CancelQueue(casual)
+   if string.find(eventMessage, prefix .. "changePrefix") or string.find(eventMessage, prefix .. "cp")  then
+    if string.find(eventMessage, "✅ Change Prefix") then
+    return 
+    end
 
+    local steamIDGet = tostring(steam.ToSteamID64(steam.GetSteamID()))
+    if(steamID == steamIDGet) then
+
+        local prefixchanged = string.match(eventMessage, "^.*%s(.*)")
+        prefix = tostring(prefixchanged)
+        local SucessMessage = "The prefix has been successfully changed, Current Prefix : " .. prefix
+        client.Command("tf_party_chat \""..SucessMessage.. "\"", true)
+    else
+        local ErrorMessage = "This command is only for the player who executes the script"
+        client.Command("tf_party_chat \""..ErrorMessage.. "\"", true)
+    end
+
+end 
+if(eventMessage == prefix .. "map" or eventMessage == prefix .. "ma") then
+    local ErrorMessage = "Need Args"
+    client.Command("tf_party_chat \""..ErrorMessage.. "\"", true)
 end
-if string.find(eventMessage, prefix .. "map")  then
+if string.find(eventMessage, prefix .. "map") or string.find(eventMessage, prefix .. "ma") then
     local extracted = string.match(eventMessage, "^.*%s(.*)")
     gamecoordinator.EnumerateQueueMapsHealth( function( map, health )
     if map:GetName() == extracted then
+        local Sucess = "✅ • Map Added"
         party.SetCasualMapSelected( map, true )
+        client.Command("tf_party_chat \""..Sucess.. "\"", true)
     end
 end)
 
-if extracted == nil then
-    local errorMessage = "Needs args"
-    client.Command("tf_party_chat \""..errorMessage.. "\"", true)
 end
 
-end
-
-if(eventMessage == prefix .. "maps") then
+if(eventMessage == prefix .. "maps" or eventMessage == prefix .. "m") then
     gamecoordinator.EnumerateQueueMapsHealth( function( map )
 
     
@@ -395,11 +432,11 @@ if(eventMessage == prefix .. "maps") then
     end )
         
 end
-if(eventMessage == prefix .. "clear") then
+if(eventMessage == prefix .. "clear" or eventMessage == prefix .. "cls") then
     local msg = "                                                                            "
     client.Command("tf_party_chat \"".. msg .."\"", true)
 end
-if(eventMessage == prefix .. "pm") then
+if(eventMessage == prefix .. "pm" or eventMessage == prefix .. "pendingmembers") then
     local errorp = "No pending Members"
 local p = table.concat(party.GetPendingMembers())
 if(p == "") then
@@ -408,19 +445,19 @@ if(p == "") then
 end
 client.Command("tf_party_chat \""..p.. "\"", true)
 end
-if(eventMessage == prefix .. "ping") then
+if(eventMessage == prefix .. "ping" or eventMessage == prefix .. "pi") then
     local me = entities.GetLocalPlayer()
 
     local ping = entities.GetPlayerResources():GetPropDataTableInt("m_iPing")[me:GetIndex()] 
     local message = "Current Ping : " .. ping
     client.Command("tf_party_chat \""..message.. "\"", true)
 end
-if(eventMessage == prefix .. "8ball") then
+if(eventMessage == prefix .. "8ball" or eventMessage == prefix .. "8b") then
     local err = "Needs args"
    client.Command("tf_party_chat \"".. err .."\"", true)
     return
-elseif string.find(eventMessage,prefix .. "8ball") then
-        if(string.find(eventMessage, "8ball : Send Answer")) then
+elseif string.find(eventMessage, prefix .. "8ball") or string.find(eventMessage, prefix .. "8b") then
+        if(string.find(eventMessage, "✅ 8ball")) then
             return
         end
 
@@ -431,7 +468,7 @@ elseif string.find(eventMessage,prefix .. "8ball") then
 end
 
 
-   if(eventMessage == prefix .."members") then
+   if(eventMessage == prefix .."members" or eventMessage == prefix .. "mem") then
 
   if party.GetLeader() == nil then
     return client.ChatPrintf("\x0700eeffYou are not in party. ")
