@@ -5,19 +5,16 @@
 ]]
 
 
+
+
 local consolas = draw.CreateFont("Consolas", 17, 500)
-local name
 local prefix = "!"
 local EnableInformation = true
 
-
+engine.Notification("Current Prefix " .. prefix .. " Enjoy the script")
 
 -- =================[Globals variables]=================[
-  local  function sleep (a) 
-        local sec = tonumber(os.clock() + a); 
-        while (os.clock() < sec) do 
-        end 
-    end
+
 
 if(entities.GetLocalPlayer() == nil) then
     return
@@ -64,29 +61,28 @@ if(WeaponID == nil) then
 end
 
 local WeaponName = itemschema.GetItemDefinitionByID(WeaponID):GetName()
-name = WeaponName
 
 
 
 if(WeaponID == 200) then
-    name = "Scattergun"
+    WeaponName = "Scattergun"
 end
 if(WeaponID == 13) then
-    name = "Scattergun"
+    WeaponName = "Scattergun"
 end
 
 if(WeaponID == 209) then
-    name = "Pistol"
+    WeaponName = "Pistol"
 end
 
 if(WeaponID == 22) then
-    name = "Pisol"
+    WeaponName = "Pisol"
 end
 if(WeaponID == 190) then
-    name = "Bat"
+    WeaponName = "Bat"
 end
 if(WeaponID == 0) then
-    name = "Bat"
+    WeaponName = "Bat"
 end
 
 -- Scout
@@ -94,174 +90,174 @@ end
 
 
 if(WeaponID == 205) then
-    name = "Rocket Launcher"
+    WeaponName = "Rocket Launcher"
 end
 if(WeaponID == 18) then
-    name = "Rocket Launcher"
+    WeaponName = "Rocket Launcher"
 end
 
 if(WeaponID == 199) then
-name = "Shotgun"
+WeaponName = "Shotgun"
 end
 
 
 if(WeaponID == 10) then
-    name = "Shotgun"
+    WeaponName = "Shotgun"
     end
 
 if(WeaponID == 196) then
-name = "Shovel"
+WeaponName = "Shovel"
 end
 if(WeaponID == 6) then
-    name = "Shovel"
+    WeaponName = "Shovel"
     end
 -- Soldier
 
 if(WeaponID == 208) then
-name = "Flame Thrower"
+WeaponName = "Flame Thrower"
 end
 if(WeaponID == 21) then
-    name = "Flame Thrower"
+    WeaponName = "Flame Thrower"
 end
 
 if(WeaponID == 192) then
-    name = "Fire Axe"
+    WeaponName = "Fire Axe"
 end
 if(WeaponID == 2) then
-    name = "Fire Axe"
+    WeaponName = "Fire Axe"
 end
  -- Pyro
 
 
 if(WeaponID == 206) then
-    name = "Grenade Launcher"
+    WeaponName = "Grenade Launcher"
 end
 if(WeaponID == 19) then
-    name = "Grenade Launcher"
+    WeaponName = "Grenade Launcher"
 end
 
 if(WeaponID == 207) then
-   name  = "Stickybomb Launcher" 
+   WeaponName  = "Stickybomb Launcher" 
 end
 
 if(WeaponID == 20) then
-    name  = "Stickybomb Launcher" 
+    WeaponName  = "Stickybomb Launcher" 
  end
 
 if(WeaponID == 191) then
-    name = "Bottle"
+    WeaponName = "Bottle"
 end
 if(WeaponID == 1) then
-    name = "Bottle"
+    WeaponName = "Bottle"
 end
 -- Demoman
 
 if(WeaponID == 202) then
-    name = "Minigun"
+    WeaponName = "Minigun"
     end
     if(WeaponID == 15) then
-        name = "Minigun"
+        WeaponName = "Minigun"
         end
 if(WeaponID == 11) then
-    name = "Shotgun"
+    WeaponName = "Shotgun"
 end
 if(WeaponID == 12) then
-    name = "Shotgun"
+    WeaponName = "Shotgun"
 end
 if(WeaponID == 195) then
-    name = "Fists"
+    WeaponName = "Fists"
 end
 
 if(WeaponID == 5) then
-    name = "Fists"
+    WeaponName = "Fists"
 end
 
 -- Heavy 
 if(WeaponID == 9) then
-    name = "Shotgun"
+    WeaponName = "Shotgun"
 end
 
 if(WeaponID == 197) then
-    name = "Wrench"
+    WeaponName = "Wrench"
 end
 
 if(WeaponID == 7) then
-    name = "Wrench"
+    WeaponName = "Wrench"
 end
 
 if(WeaponID == 25) then
-    name = "PDA"
+    WeaponName = "PDA"
 end
 if(WeaponID == 26) then
-    name = "Destruction PDA"
+    WeaponName = "Destruction PDA"
 end
 
 -- Engineer
 
 if(WeaponID == 204 ) then
-    name = "Syringe Gun"
+    WeaponName = "Syringe Gun"
 end
 
 if(WeaponID == 17 ) then
-    name = "Syringe Gun"
+    WeaponName = "Syringe Gun"
 end
 
 if(WeaponID == 211) then
-    name = "Medigun"
+    WeaponName = "Medigun"
 end
 
 if(WeaponID == 29) then
-    name = "Medigun"
+    WeaponName = "Medigun"
 end
 if(WeaponID == 198) then
-    name = "Bonesaw"
+    WeaponName = "Bonesaw"
 end 
 if(WeaponID == 8) then
-    name = "Bonesaw"
+    WeaponName = "Bonesaw"
 end   
 if(WeaponID == 28) then
-    name = "Builder"
+    WeaponName = "Builder"
 end
 -- Medic
 
 if(WeaponID == 201 ) then
-    name = "Sniper Rifle"
+    WeaponName = "Sniper Rifle"
 end
 if(WeaponID == 14 ) then
-    name = "Sniper Rifle"
+    WeaponName = "Sniper Rifle"
 end
 
 if(WeaponID == 203) then
-    name = "SMG"
+    WeaponName = "SMG"
 end
 if(WeaponID == 16) then
-    name = "SMG"
+    WeaponName = "SMG"
 end
 if(WeaponID == 193) then
-    name = "Kukri"
+    WeaponName = "Kukri"
 end  
 if(WeaponID == 3) then
-    name = "Kukri"
+    WeaponName = "Kukri"
 end  
 -- Sniper
 
 if(WeaponID == 210 ) then
-    name = "Revolver"
+    WeaponName = "Revolver"
 end
 if(WeaponID == 24 ) then
-    name = "Revolver"
+    WeaponName = "Revolver"
 end
 if(WeaponID == 735) then
-    name = "Sapper"
+    WeaponName = "Sapper"
 end
 if(WeaponID == 194) then
-    name = "Knife"
+    WeaponName = "Knife"
 end  
 if(WeaponID == 4) then
-    name = "Knife"
+    WeaponName = "Knife"
 end  
 if(WeaponID == 27) then
-    name = "Disguise Kit"
+    WeaponName = "Disguise Kit"
 end
 
 -- Spy
@@ -271,9 +267,9 @@ draw.Text(5,20,"Current Weapon: ")
 -- Draw Current Weapon
 
 draw.Color(39, 67, 211,255)
-draw.Text(130,20, name)
+draw.Text(130,20, WeaponName)
 
--- Draw the Weapon Name
+-- Draw the Weapon WeaponName
 
 draw.Color( 47, 111, 90, 255)
 draw.Text(5,40,"Current ID:")
