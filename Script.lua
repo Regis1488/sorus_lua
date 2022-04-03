@@ -1,3 +1,4 @@
+
 --[[
     Made by ₷orus#8059
     Credits : pred14 - For ping and thanks to your code to better understand the API
@@ -347,6 +348,7 @@ if(ev:GetName() == "party_chat") then
     local maps = "✅ Maps • (" .. prefix .. "maps, " .. prefix .. "m)"
  --   local RestartQueue = "✅ Restart Queue • (" .. prefix .. "restartq, " .. prefix .. "restart, " .. prefix .. "rq)"
     local changePrefix = "✅ Change Prefix • (" .. prefix .. "changeprefix, " .. prefix .. "cp)"
+    local say = "✅ Say  • (" .. prefix .. "say)"
     client.Command("tf_party_chat \""..time.. "\"", true)
     client.Command("tf_party_chat \""..dice.. "\"", true)
     client.Command("tf_party_chat \""..members.. "\"", true)
@@ -360,6 +362,7 @@ if(ev:GetName() == "party_chat") then
     client.Command("tf_party_chat \""..map.. "\"", true)
     client.Command("tf_party_chat \""..maps.. "\"", true)
     client.Command("tf_party_chat \""..changePrefix.. "\"", true)
+    client.Command("tf_party_chat \""..say.. "\"", true)
    -- Declare and send Help
    end
 
@@ -429,7 +432,7 @@ if(eventMessage == prefix .. "maps" or eventMessage == prefix .. "m") then
         
 end
 if(eventMessage == prefix .. "clear" or eventMessage == prefix .. "cls") then
-    local msg = "                                                                            "
+    local msg = ""
     client.Command("tf_party_chat \"".. msg .."\"", true)
 end
 if(eventMessage == prefix .. "pm" or eventMessage == prefix .. "pendingmembers") then
@@ -465,7 +468,6 @@ end
 
 
    if(eventMessage == prefix .."members" or eventMessage == prefix .. "mem") then
-
   if party.GetLeader() == nil then
     return client.ChatPrintf("\x0700eeffYou are not in party. ")
     end
@@ -474,9 +476,40 @@ end
    local x = steam.GetPlayerName(p)
    local send = "Current Members : " .. x .. ", "
    print(send)
-   client.Command("tf_party_chat \""..send.. "\"", true)
+   client.Command("tf_party_chat \"".. send.. "\"", true)
    end
    
+
+   if(eventMessage == prefix .. "say") then
+    local err = "Needs args"
+    client.Command("tf_party_chat \"".. err .."\"", true)
+   elseif string.find(eventMessage, prefix .. "say") then
+    if(string.find(eventMessage, "✅ Say")) then
+        return
+    end
+    if(entities.GetLocalPlayer() == nil) then
+            local error = "The player is not in the game"
+            client.Command("tf_party_chat \"".. error.. "\"", true)
+            return
+    end
+    local extracted = string.match(eventMessage, " (.+)")
+    if(gamerules.IsMatchTypeCasual() == true) then
+        if(client.IsFreeTrialAccount() == true) then
+            local message = "I can't send message because this account is F2P"
+            client.Command("tf_party_chat \"".. message.. "\"", true)
+            return
+        else
+           
+            client.Command("say " ..extracted, true)
+        end
+    else
+        local extracted = string.match(eventMessage, " (.+)")
+        client.Command("say " ..extracted, true)  
+    end
+
+
+   end
+
 end
 
 
