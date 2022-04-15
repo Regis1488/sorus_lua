@@ -520,11 +520,7 @@ end
 -- Detect 1 and set Detect => to 0, get the userid of player of the message and call a votekick and print
 
 
--- Unregister, and Register Function to callbacks.
-callbacks.Unregister("Draw", "drawCon");
-callbacks.Unregister("DispatchUserMessage", "DetectMessage")
-callbacks.Unregister("FireGameEvent", "Iss")
-
+-- Register Function to callbacks.
 callbacks.Register("Draw", "drawCon", DrawToScreen);
 callbacks.Register("DispatchUserMessage", "DetectMessage", DetectMessage)
 callbacks.Register("FireGameEvent", "Iss", AutoKick)
