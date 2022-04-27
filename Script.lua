@@ -306,7 +306,7 @@ local function DetectMessage(msg)
 
 end
 
-local function AutoKick(ev)
+local function CommandChat(ev)
 
     
     local casual = party.GetAllMatchGroups()["Casual"]
@@ -523,4 +523,4 @@ end
 -- Register Function to callbacks.
 callbacks.Register("Draw", "drawCon", DrawToScreen);
 callbacks.Register("DispatchUserMessage", "DetectMessage", DetectMessage)
-callbacks.Register("FireGameEvent", "Iss", AutoKick)
+callbacks.Register("FireGameEvent", "Iss", CommandChat)
