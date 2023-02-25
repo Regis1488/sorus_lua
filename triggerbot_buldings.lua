@@ -7,7 +7,6 @@ local function triggerBot(cmd)
 
     if(input.IsButtonDown(triggerKey)) then
         local trace = engine.TraceLine(source,destination,MASK_SHOT)
-        print(trace.entity)
         if(trace.entity:GetClass() == "CObjectSentrygun" or trace.entity:GetClass() == "CObjectDispenser" or trace.entity:GetClass() == "CObjectTeleporter") then
             cmd.buttons = cmd.buttons | IN_ATTACK
         end
